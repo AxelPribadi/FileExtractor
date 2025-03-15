@@ -1,2 +1,12 @@
 .venv/
 venv/
+
+__pycache__
+*.pyc
+
+downloads/
+
+.env
+*.env
+
+.DS_Store
