@@ -1,12 +1,12 @@
 // Script for index.html
-
 const fileInput = document.getElementById('file-input');
 const filesContainer = document.getElementById('files-container');
 const uploadBtn = document.getElementById('upload-btn');
 const fileDropArea = document.getElementById('file-drop-area');
 const statusMessage = document.getElementById('status-message');
 const appIdSelect = document.getElementById('app_id');
-const submitButton = document.getElementById('upload-form')
+const uploadForm = document.getElementById('upload-form');
+const filenamesInput = document.querySelector('input[name="filenames"]');
 
 // Keep a global array to store selected files
 let selectedFiles = [];
@@ -33,9 +33,10 @@ function standardizeFileName(filename) {
 
 function generateFormattedFileName(file) {
     const mode = document.querySelector('input[name="upload-type"]:checked').value;
+    const appId = document.getElementById('app_id').value || 'appId';
     const date = getTodayDate();
     
-    if (!file) return `${mode}_file_${date}`;
+    if (!file) return `${appId}_${mode}_file_${date}`;
     
     const originalFilename = file.name;
     const lastDotIndex = originalFilename.lastIndexOf('.');
@@ -43,7 +44,7 @@ function generateFormattedFileName(file) {
     const nameWithoutExtension = lastDotIndex !== -1 ? originalFilename.slice(0, lastDotIndex) : originalFilename;
     const cleanFileName = standardizeFileName(nameWithoutExtension);
     
-    return `${mode}_${cleanFileName}_${date}.${extension}`;
+    return `${appId}_${mode}_${cleanFileName}_${date}.${extension}`;
 }
 
 // Validate file format based on selected application
@@ -80,6 +81,24 @@ function validateAllFiles(files) {
         valid: true,
         message: `✓ ${files.length} files ready to upload!`
     };
+}
+
+// Update the hidden filenames input with formatted filenames
+function updateFilenamesInput() {
+    const formattedFilenames = selectedFiles.map(file => generateFormattedFileName(file));
+    
+    // Remove any existing filename inputs
+    const existingFilenameInputs = uploadForm.querySelectorAll('input[name="filenames"]');
+    existingFilenameInputs.forEach(input => input.remove());
+    
+    // Create individual input elements for each filename
+    formattedFilenames.forEach(filename => {
+        const filenameInput = document.createElement('input');
+        filenameInput.type = 'hidden';
+        filenameInput.name = 'filenames';
+        filenameInput.value = filename;
+        uploadForm.appendChild(filenameInput);
+    });
 }
 
 // Display all selected files
@@ -120,6 +139,9 @@ function displayFiles() {
             filesContainer.appendChild(fileElement);
         }
     }
+    
+    // Update the hidden filenames input
+    updateFilenamesInput();
 }
 
 // Remove a file from the selection
@@ -146,33 +168,38 @@ function validateForm() {
 }
 
 // Handle form submission
-submitButton.addEventListener('submit', function(e) {
-    e.preventDefault(); // Always prevent default to handle manually
-    
+uploadForm.addEventListener('submit', function(e) {
     if (!validateForm()) {
+        e.preventDefault();
         return false;
     }
     
-    statusMessage.textContent = '⚡ Uploading...';
+    // Update the filenames input one last time before submission
+    updateFilenamesInput();
     
-    // Create a FormData object to handle the files
-    const formData = new FormData(this);
+    // Clear any existing files from the form
+    const existingFileInputs = uploadForm.querySelectorAll('input[name="files"]');
+    existingFileInputs.forEach(input => input.remove());
     
-    // Remove any existing files from the form
-    formData.delete('files[]');
-    
-    // Add our manually tracked files to the form data
+    // Create form-compatible file inputs
     selectedFiles.forEach(file => {
-        formData.append('files[]', file);
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.name = 'files';
+        fileInput.style.display = 'none';
+        fileInput.files = dataTransfer.files;
+        
+        uploadForm.appendChild(fileInput);
     });
     
-    // Here you would normally send the formData to the server
-    // For demo purposes, let's simulate the upload process:
-    setTimeout(() => {
-        statusMessage.textContent = '✅ Upload complete!';
-    }, 1500);
+    // Show uploading message
+    statusMessage.textContent = '⚡ Uploading...';
     
-    return false;
+    // Allow the form to submit normally
+    return true;
 });
 
 // Handle file selection
@@ -235,4 +262,3 @@ fileDropArea.addEventListener('drop', function(e) {
 appIdSelect.addEventListener('change', function() {
     updateFormStatus();
 });
-
