@@ -76,14 +76,14 @@ IMAGE_EXT = [".jpg", ".jpeg", ".png", ".svg"]
 class FileCategorizer:
     CATEGORY_RULES = {
         "DOCUMENT_EXT": {
-            "keyword": "staffBot_",
-            "path": "staffBot/Active/",
-            "s3_folder": "AI_DATA/staffBot/Active"
+            "keyword": "documentContext_",
+            "path": "documentContext/Active/",
+            # "s3_folder": "AI_DATA/documentContext/Active"
         },
         "IMAGE_EXT": {
             "keyword": "imageGenerator_",
             "path": "imageGenerator/Active/",
-            "s3_folder": "AI_DATA/imageGenerator/Active"
+            # "s3_folder": "AI_DATA/imageGenerator/Active"
         },
     }
     
@@ -92,7 +92,7 @@ class FileCategorizer:
         self.ext = ext
         self.output_folder = output_folder
         self.file_location = None
-        self.folder_name = None
+        # self.folder_name = None
     
     def categorize(self):
         for category, details in self.CATEGORY_RULES.items():
@@ -102,13 +102,13 @@ class FileCategorizer:
                 (category == "IMAGE_EXT" and self.ext in IMAGE_EXT)
             ) and details["keyword"] in self.filename:
                 self.file_location = os.path.join(self.output_folder, details["path"], self.filename)
-                self.folder_name = details["s3_folder"]
+                # self.folder_name = details["s3_folder"]
                 return
             
         raise Exception(f"Unsupported file type or filename format: {self.ext}")
     
     def get_file_details(self):
-        return self.file_location, self.folder_name
+        return self.file_location #, self.folder_name
 
 def get_file_extension(filename):
     return Path(filename).suffix

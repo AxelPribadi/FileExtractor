@@ -34,7 +34,8 @@ async def upload_file(
             # Categorize file using the class
             categorizer = FileCategorizer(_filename, ext, "/Users/axel/Documents/GitHub Repo/FileExtractor/downloads/")
             categorizer.categorize()
-            file_location, folder_name = categorizer.get_file_details()
+            file_location = categorizer.get_file_details()
+            # file_location, folder_name = categorizer.get_file_details()
             
             # Ensure directory exists
             os.makedirs(os.path.dirname(file_location), exist_ok=True)
@@ -43,12 +44,6 @@ async def upload_file(
             with open(file_location, "wb") as f:
                 f.write(await _file.read())
             
-            # Upload to S3
-            # conn.s3_juwai_conn.store(
-            #     local_file=file_location,
-            #     s3_filename=_filename,
-            #     s3_folder=folder_name
-            # )
             
             saved_files.append(_file.filename)
         
