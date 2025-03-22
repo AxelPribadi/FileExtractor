@@ -4,11 +4,13 @@ venv/
 __pycache__
 *.pyc
 
-downloads/
-
 .env
 *.env
 
 .DS_Store
 
+downloads/
 localhouse/
+logs/
+logger.py
+
