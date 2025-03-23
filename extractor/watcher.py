@@ -41,21 +41,17 @@ class Watcher:
         self.observer.start()
 
         try:
-            # last_run_time = time.time()
+            last_run_time = time.time()
             ingestor = Ingestor(table_name=settings.LANCE_DB_TABLE_NAME)
-
-            print(f"Current file list: {self.event_handler.get_all_files()}")
-            files = self.event_handler.get_all_files()
-            ingestor.ingest(files)
             
             while True:
                 # run every minute
-                # current_time = time.time()
-                # if current_time - last_run_time >= 10:
-                #     print(f"Current file list: {self.event_handler.get_all_files()}")
-                #     files = self.event_handler.get_all_files()
-                #     ingestor.ingest(files)
-                #     last_run_time = current_time
+                current_time = time.time()
+                if current_time - last_run_time >= 10:
+                    print(f"Current file list: {self.event_handler.get_all_files()}")
+                    files = self.event_handler.get_all_files()
+                    ingestor.ingest(files)
+                    last_run_time = current_time
 
                 time.sleep(5)
         except KeyboardInterrupt:
