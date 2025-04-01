@@ -14,3 +14,7 @@ localhouse/
 logs/
 logger.py
 
+.chainlit/
+chainlit.md
+
+.files/
