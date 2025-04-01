@@ -31,6 +31,7 @@ uvicorn app.main:app --reload
 The portal currently supports the following file types:
 
 ✅ **Documents**: `pdf`, `txt`, `doc`, `docx`
+
 ✅ **Images**: `jpg`, `jpeg`, `png`, `svg`
 
 ### **Upcoming Features**
