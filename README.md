@@ -29,6 +29,27 @@ The Chatbot is an interactive interface that allows users to ask questions based
 3. The extracted content is chunked, embedded, and stored in **LanceDB** for efficient retrieval.
 4. The **Chatbot** uses the stored data to provide contextually relevant, intelligent responses to user queries.
 
+## **Setup**
+1. Go to the FileExtractor folder
+```zsh
+cd FileExtractor
+```
+
+2. Create a virtual environment
+```zsh
+python3 -m venv .venv
+```
+
+3. Activate virtual environment
+```zsh
+source .venv/bin/activate
+```
+
+4. Install requirements.txt
+```zsh
+pip install -r requirements.txt
+```
+
 ## **Additional Information**
 More details can be found in each folder's respective `README.md`.
 

@@ -8,7 +8,6 @@ from agno.embedder.openai import OpenAIEmbedder
 from config import settings
 
 # Initialize the AGNO Agent
-
 knowledge_base = AgentKnowledge(
     vector_db = LanceDb(
         table_name="test",
@@ -37,7 +36,7 @@ async def on_message(message: cl.Message):
     response: RunResponse = agent.run(user_input)
 
     # Extract the response content (use the correct attribute)
-    response_text = response.content  # Ensure 'message' is the correct attribute
+    response_text = response.content
 
     # Send response back to the user
     await cl.Message(content=response_text).send()

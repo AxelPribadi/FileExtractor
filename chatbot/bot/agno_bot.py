@@ -18,7 +18,6 @@ class AgnoFactory:
             uri=settings.LANCE_DB_URI,
             search_type=SearchType.vector,
             embedder=OpenAIEmbedder(api_key=settings.OPENAI_API_KEY)
-
         )
 
         knowledge_base = AgentKnowledge(vector_db=vector_db)
@@ -34,3 +33,6 @@ class AgnoFactory:
         )
 
         return agent
+    
+
+    
