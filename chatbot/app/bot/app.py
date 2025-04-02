@@ -5,7 +5,7 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.lancedb import LanceDb
 from agno.vectordb.search import SearchType
 from agno.embedder.openai import OpenAIEmbedder
-from config import settings
+from app.core.config import settings
 
 # Initialize the AGNO Agent
 knowledge_base = AgentKnowledge(

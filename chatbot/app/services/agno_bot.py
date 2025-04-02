@@ -5,7 +5,7 @@ from agno.vectordb.lancedb import LanceDb
 from agno.vectordb.search import SearchType
 from agno.embedder.openai import OpenAIEmbedder
 
-from chatbot.bot.config import settings
+from app.core.config import settings
 
 class AgnoFactory:
     def __init__(self, vector_table: str = "test", system_rule: str = None):

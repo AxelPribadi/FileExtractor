@@ -4,8 +4,8 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-from extractor.core.config import settings
-from extractor.pipeline.extractor import *
+from app.core.config import settings
+from app.pipeline.extractor import *
 
 class DownloadsWatcher(FileSystemEventHandler):
     def __init__(self, directory):

@@ -14,9 +14,9 @@ from agno.vectordb.search import SearchType
 from pydantic import BaseModel
 from typing import List
 
-from extractor.core.config import settings
-from extractor.utils.file_metadata import FileMetadata
-from extractor.utils.util import *
+from app.core.config import settings
+from app.utils.file_metadata import FileMetadata
+from app.utils.util import *
 
 
 class Ingestor(BaseModel):

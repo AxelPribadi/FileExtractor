@@ -5,7 +5,8 @@ from agno.utils.pprint import pprint_run_response
 from agno.vectordb.lancedb import LanceDb
 from agno.vectordb.search import SearchType
 from agno.embedder.openai import OpenAIEmbedder
-from chatbot.bot.config import settings
+
+from app.core.config import settings
 
 
 vdb = LanceDb(
