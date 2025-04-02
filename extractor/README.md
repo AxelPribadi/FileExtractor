@@ -19,9 +19,9 @@ The data extractor is a component of the FileExtractor project that is responsib
 
 
 ## **Setup**
-1. Navigate to the FileExtractor project directory:
+1. Navigate to the Data Extractor project directory:
 ```zsh
-cd FileExtractor
+cd extractor
 ```
 
 2. Start the extractor module:
@@ -30,5 +30,3 @@ python3 -m extractor.main
 ```
 
 ## **Additional Information**
-
-

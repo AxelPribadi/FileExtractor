@@ -15,9 +15,9 @@ The file input portal has two modes of action:
    - Preserves and adds to the existing collection.
 
 ## **Setup**
-1. Navigate to the FileExtractor project directory:
+1. Navigate to the File Portal project directory:
 ```zsh
-cd FileExtractor
+cd file_portal
 ```
 
 2. Start the FastAPI server with uvicorn:
