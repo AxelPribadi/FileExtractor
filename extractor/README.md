@@ -26,7 +26,7 @@ cd extractor
 
 2. Start the extractor module:
 ```zsh
-python3 -m extractor.main
+python3 -m app.main
 ```
 
 ## **Additional Information**
