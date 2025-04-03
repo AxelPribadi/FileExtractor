@@ -1,28 +1,56 @@
-# FileExtractor
+# **FileExtractor**
 
-## What is this all about?
-FileExtractor is a retrieval augmented generation (RAG) pipeline designed to extract, process and store data in a vector database. This data serves as context to an LLM model, which results to a more intelligent and context-aware response for the users.
+## **Overview**
+FileExtractor is a Retrieval-Augmented Generation (RAG) pipeline designed to efficiently extract, process, and store data in a vector database. This data is used as context for a large language model (LLM), enabling it to generate more intelligent, context-aware responses to user queries.
 
-## Project Structure (As of Now)
-This repository consists of two main components:
+## **Project Structure**
+As of now, this repository consists of three primary components:
 
-### 1. File Portal (`app/`)  
-The File Portal is responsible for handling file uploads and organizing them into the appropriate directory before processing.
-- Accepts and uploads files into the downloads folder
-- Ensures proper file organization before ingestion
-- Acts as the entry point for files before they are processed
+### **1. File Portal (`app/`)**
+The File Portal is responsible for handling file uploads and organizing them into appropriate directories before they are processed.
+- Accepts and uploads files to the downloads folder.
+- Ensures proper organization of files before ingestion.
+- Acts as the entry point for files prior to processing.
 
-### 2. Extractor (`extractor/`)
-The Extractor is responsible for processing the uploaded files by watching the downloads folder and running scheduled ingestion jobs.
-- Monitors the downloads folder for new files
-- Extracts file content and chunks the data
-- Generates embeddings for storage
-- Stores the processed data in a LanceDB vector database
+### **2. Extractor (`extractor/`)**
+The Extractor is responsible for processing the uploaded files by monitoring the downloads folder and executing scheduled ingestion tasks.
+- Monitors the downloads folder for newly uploaded files.
+- Extracts content from files and chunks the data.
+- Generates embeddings for efficient storage and retrieval.
+- Stores processed data in the LanceDB vector database.
 
-### Workflow Summary
-1. The File Portal accepts file uploads and places them into the downloads folder.
-2. The Extractor runs periodically, detects new files, and processes them.
-3. Extracted and chunked content is embedded and stored in LanceDB for retrieval.
-4. The stored data is later used to enhance LLM responses with relevant contextual information.
+### **3. Chatbot (`chatbot/`)**
+The Chatbot is an interactive interface that allows users to ask questions based on the data processed and stored by the system.
+- Users can ask questions, and the bot generates responses based on the relevant context stored in the vector database.
 
-Both components work together to form an efficient RAG pipeline for document ingestion and retrieval. 🚀
+## **Workflow Summary**
+1. The **File Portal** accepts file uploads and places them in the downloads folder.
+2. The **Extractor** periodically detects new files in the downloads folder and processes them.
+3. The extracted content is chunked, embedded, and stored in **LanceDB** for efficient retrieval.
+4. The **Chatbot** uses the stored data to provide contextually relevant, intelligent responses to user queries.
+
+## **Setup**
+1. Go to the FileExtractor folder
+```zsh
+cd FileExtractor
+```
+
+2. Create a virtual environment
+```zsh
+python3 -m venv .venv
+```
+
+3. Activate virtual environment
+```zsh
+source .venv/bin/activate
+```
+
+4. Install requirements.txt
+```zsh
+pip install -r requirements.txt
+```
+
+## **Additional Information**
+More details can be found in each folder's respective `README.md`.
+
+Together, these components form a cohesive and efficient RAG pipeline for document ingestion, context extraction, and real-time query resolution. 🚀
