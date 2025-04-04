@@ -160,9 +160,31 @@ class Ingestor(BaseModel):
         Returns:
             Tuple[List[str], List[str]]: Tuple of (files to process, unused files).
         """
-        for i in range(len(files)-1, 0, -1):
-            if (FileMetadata(files[i]).action == "reset"):
-                return files[i:], files[:i]
+        # for i in range(len(files)-1, 0, -1):
+        #     if (FileMetadata(files[i]).action == "reset"):
+        #         return files[i:], files[:i]
+        # return files, []
+
+        latest_timestamp = 0
+        index = 0
+
+        for i in range(len(files)-1, -1, -1):
+            metadata = FileMetadata(files[i])
+
+            if metadata.action == "reset":
+                if latest_timestamp == 0:
+                    latest_timestamp = metadata.timestamp
+                    index = i
+                elif metadata.timestamp == latest_timestamp:
+                    index = i
+                else:
+                    break
+            elif latest_timestamp != 0:
+                break
+            
+        if latest_timestamp != 0:
+            return files[index:], files[:index]
+        
         return files, []
     
     def sort_files(self, files: List[str]):

@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from pathlib import Path
 from pydantic import BaseModel, Field
 
@@ -25,4 +24,4 @@ class FileMetadata(BaseModel):
             timestamp=raw_filename[3],
             extension=file_path.suffix.lstrip(".")
         )
-
+        
